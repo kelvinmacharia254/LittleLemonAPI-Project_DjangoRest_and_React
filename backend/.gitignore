@@ -1,0 +1,11 @@
+.env
+.idea
+.idea/git
+*.docx
+*.csv
+*.json
+*.tmp
+# Ignore compiled Python files in all subfolders
+**/*.pyc
+
+S

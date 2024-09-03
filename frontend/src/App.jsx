@@ -1,38 +1,35 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import './App.css';
 
-import './App.css'
+import {fetchInfo} from "./http.js";
 
-const HOST = import.meta.env.VITE_API_URL
 function App() {
-    const [data, setData] = useState([])
+  const [data, setData] = useState(null);
+  const [error, setError] = useState('');
 
-    useEffect(() => {
-        console.log(HOST)
+  useEffect(() => {
+    async function fetch() {
+      try {
+        const response = await fetchInfo();
+        setData(response);
+        setError('');
 
-        async function fetchInfo(){
-            try {
-                const response = await fetch(`${HOST}/users`, {})
+      } catch (error) {
+        console.error('Error fetching:',`${error.message} : ${error.status}`);
+        setError('Could not fetch data from server');
+      }
+    }
 
-                if (!response.ok) {
-                    throw Error(`${response.status} : ${response.statusText}`)
-                }
+    fetch()
 
-                const data = await response.json()
-                console.log(data)
-                setData(data)
+  }, []);
 
-            }catch(error){
-                console.log('Error fetching: ', error)
-            }
-        }
-        fetchInfo()
-
-    }, []);
-    return (
+  return (
     <>
-        <p>Message: {data.message}</p>
+      <p>Message: {data?.message}</p>
+      <p>{error}</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -38,6 +38,7 @@ from django.contrib.auth.models import User, Group
 #
 @api_view()
 def test_endpoint(request):
+
     return Response({"message": "Test endpoint"})
 
 

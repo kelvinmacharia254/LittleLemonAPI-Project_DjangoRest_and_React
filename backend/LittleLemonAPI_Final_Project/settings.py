@@ -141,9 +141,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',  # Works with browsable API. Deactivate when done
     ],
     'DEFAULT_THROTTLE_RATES': {
-                'user': '10/minute'
-                }
+        'user': '10/minute'
+    }
 }
+
 
 # ALLOW CORS
 CORS_ORIGIN_ALLOW_ALL = True

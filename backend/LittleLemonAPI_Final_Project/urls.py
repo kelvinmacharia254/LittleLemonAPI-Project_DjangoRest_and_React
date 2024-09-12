@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from . import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('LittleLemonAPI.urls')),
@@ -25,3 +27,7 @@ urlpatterns = [
     path('api/', include('djoser.urls')),
     path('api/', include('djoser.urls.authtoken')),
 ]
+
+# custom error handlers
+handler404 = "LittleLemonAPI_Final_Project.views.custom_404_handler"
+handler500 = "LittleLemonAPI_Final_Project.views.custom_500_handler"

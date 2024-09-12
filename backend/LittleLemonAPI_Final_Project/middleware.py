@@ -30,7 +30,7 @@ class CustomJsonResponseMiddleware:
                     )
                 elif response.status_code == 500:
                     response = JsonResponse(
-                        {"message": "An internal server error occurred."},
+                        {"message": "Middleware--> An internal server error occurred."},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR
                     )
 

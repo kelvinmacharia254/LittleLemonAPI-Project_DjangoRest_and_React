@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-jz7y9*58)hnax#aq43r%rn$$%@^n@z7spubcar0@#gnr!tm_n&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -49,12 +49,14 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    # Add above line just before this line
+    # Add 'CorsMiddleware' above 'CommonMiddleware'
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Add your custom middleware here
+    'LittleLemonAPI_Final_Project.middleware.CustomJsonResponseMiddleware',
 ]
 
 ROOT_URLCONF = 'LittleLemonAPI_Final_Project.urls'
@@ -128,6 +130,12 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'EXCEPTION_HANDLER': [
+        f'LittleLemonAPI_Final_Project.views.custom_exception_handler'],
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',  # Token authentication in DRF
         'rest_framework.authentication.SessionAuthentication',  # Works with browsable API. Deactivate when done
@@ -139,7 +147,10 @@ REST_FRAMEWORK = {
 
 # ALLOW CORS
 CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOWED_ORIGINS = []
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:5173',
+#     'http://127.0.0.1:5173',
+# ]
 
 # DJOSER = {
 #     "USER_ID_FIELD": "username",  # sets username as pk. This is the default
